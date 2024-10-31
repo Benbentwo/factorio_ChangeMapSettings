@@ -34,7 +34,7 @@ data.raw["gui-style"]["default"]["frame_in_deep_frame"] =
 data.raw["gui-style"]["default"]["b_inner_frame_no_border"] =
 {
   type = "frame_style",
-  parent = "b_inner_frame",
+  parent = "shallow_frame",
   graphical_set =
   {
     base =
