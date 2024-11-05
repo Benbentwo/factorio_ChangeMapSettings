@@ -143,7 +143,17 @@ local function change_map_gen_settings(player)
     return
   end
 
-  --apply
+  
+  local current_settings = game.get_surface(player.surface_index).map_gen_settings.autoplace_controls
+  local settings_controls = settings.autoplace_controls
+
+  for key, _ in pairs(settings_controls) do
+      if current_settings[key] == nil then
+        settings_controls[key] = nil
+      end
+  end
+
+  -- Now, set the `settings` back to map_gen_settings
   player.surface.map_gen_settings = settings
   player.print({"msg.change-map-settings-applied"})
 

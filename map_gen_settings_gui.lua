@@ -291,6 +291,12 @@ end
 -- if autoplace is provided, the localised name is taken from there
 map_gen_gui.make_autoplace_options = function(name, parent, has_richness, autoplace)
   map_gen_gui.make_autoplace_label(name, parent, autoplace)
+  -- local autoplace_control_enabled_on_current_surface = game.get_player(parent.player_index).surface.map_gen_settings.autoplace_controls[name] ~= nil
+  -- parent.add{
+  --   type = "checkbox",
+  --   name = ENTIRE_PREFIX .. name .. "-enabled",
+  --   state = autoplace_control_enabled_on_current_surface
+  -- }
   parent.add{
     type = "textfield",
     name = ENTIRE_PREFIX .. name .. "-freq",
