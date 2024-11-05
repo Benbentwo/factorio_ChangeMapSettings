@@ -1,7 +1,7 @@
-local util = require("__ChangeMapSettings__/utilities")
+local util = require("__ChangeMapSettings_V2__/utilities")
 local mod_gui = require("__core__/lualib/mod-gui")
-local map_gen_gui = require("__ChangeMapSettings__/map_gen_settings_gui")
-local map_settings_gui = require("__ChangeMapSettings__/map_settings_gui")
+local map_gen_gui = require("__ChangeMapSettings_V2__/map_gen_settings_gui")
+local map_settings_gui = require("__ChangeMapSettings_V2__/map_settings_gui")
 local gui = {}
 
 -- GUI --
@@ -60,7 +60,7 @@ gui.make_map_settings = function(parent, surface)
   local inner_frame = parent.add{
     type = "frame",
     direction = "vertical",
-    style = "window_content_frame_packed"
+    style = "inside_shallow_frame_packed"
   }
 
   -- tool buttons
@@ -189,7 +189,7 @@ gui.make_map_gen_settings = function(parent)
 
     -- presets
     local presets = {}
-    for name, preset in pairs(game.map_gen_presets) do
+    for name, preset in pairs(prototypes.map_gen_preset) do
       if not preset.basic_settings then
         goto continue
       end

@@ -1,7 +1,7 @@
-local gui = require("__ChangeMapSettings__/gui")
-local util = require("__ChangeMapSettings__/utilities")
-local map_gen_gui = require("__ChangeMapSettings__/map_gen_settings_gui")
-local map_settings_gui = require("__ChangeMapSettings__/map_settings_gui")
+local gui = require("__ChangeMapSettings_V2__/gui")
+local util = require("__ChangeMapSettings_V2__/utilities")
+local map_gen_gui = require("__ChangeMapSettings_V2__/map_gen_settings_gui")
+local map_settings_gui = require("__ChangeMapSettings_V2__/map_settings_gui")
 
 local function reset_to_default_map_gen_settings(player)
   --seed
@@ -98,9 +98,13 @@ local function change_map_settings(player)
     map_settings.enemy_expansion[k] = v
   end
   for k, v in pairs(enemy_evolution) do
-    map_settings.enemy_evolution[k] = v
+    if not k == 'evolution_factor' then
+      map_settings.enemy_evolution[k] = v
+    end
   end
-  game.forces["enemy"].evolution_factor = enemy_evolution.evolution_factor
+  for _, surface in pairs(game.surfaces) do
+    game.forces["enemy"].set_evolution_factor(enemy_evolution.evolution_factor, surface)
+  end
 
   player.print({"msg.change-map-settings-applied"})
 
@@ -199,7 +203,7 @@ script.on_event(defines.events.on_gui_selection_state_changed, function(event)
   -- then set up the preset
   -- {"map-gen-preset-name." .. preset_name}
   local preset_name = item[1]:sub(string.len("map-gen-preset-name.") + 1)
-  local preset = game.map_gen_presets[preset_name]
+  local preset = prototypes.map_gen_preset[preset_name]
 
   map_gen_gui.set_to_current(gui.get_map_gen_settings_container(player), preset.basic_settings)
 end)
